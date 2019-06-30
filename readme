@@ -1,0 +1,23 @@
+*the folder MPlayer-1.2.1 contains the modified mplayer.c code
+
+*In mplayer.c any of the following scheduling algorithm can be selected.
+   #define SET_SCHED_ALGO SCHED_RT_EDF
+   #define SET_SCHED_ALGO SCHED_RT_RMA
+
+*changes in the config.mak file
+in EXTRALIBS at the end add the text:
+EXTRALIBS = _________________ -lchronos
+-lchronos is for incorporating chronos dependencies
+
+*installing hte MPlayer with ChronOS:
+-> Inside mplayer run
+    sudo ./configure
+   This is done to generate the make file.
+-> Now make the changes as mentioned above in config.mak file.
+-> After this build mplayer by
+    sudo make
+    sudo make install
+-> Load Scheduler
+    sudo modprobe rma //Whatever schedule you have added in the ChronOS
+-> run the media player using:
+    ./mplayer test.mp4
